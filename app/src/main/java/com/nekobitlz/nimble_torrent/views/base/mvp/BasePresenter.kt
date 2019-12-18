@@ -1,9 +1,9 @@
 package com.nekobitlz.nimble_torrent.views.base.mvp
 
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
-class BasePresenter<V: BaseContract.View> : BaseContract.Presenter<V> {
+open class BasePresenter<V: BaseContract.View> : BaseContract.Presenter<V> {
 
     lateinit var view: V
         private set
