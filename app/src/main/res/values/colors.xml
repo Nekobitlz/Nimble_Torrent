@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+
+    <!-- COLOR PALETTE:  http://paletton.com/#uid=1000u0kllllaFw0g0qFqFg0w0aF -->
+    <color name="colorRedMain">#F54457</color>
+    <color name="colorRedLight">#F8979E</color>
+    <color name="colorRedDark">#DB394A</color>
+    <color name="colorGrey">#D7D1D4</color>
+    <color name="colorGreyLight">#FDFCFD</color>
+    <color name="colorGreyDark">#595F6A</color>
+    <color name="colorGreyBlue">#ABC5BC</color>
+
 </resources>
