@@ -1,11 +1,28 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/colorRedMain</item>
+        <item name="colorPrimaryDark">@color/colorRedDark</item>
+        <item name="colorAccent">@color/colorRedLight</item>
+
+        <item name="activityBackground">@color/colorGrey</item>
+        <item name="toolbarBackground">@color/colorRedDark</item>
+        <item name="toolbarTextColor">@color/colorGreyLight</item>
+        <item name="isLightTheme">true</item>
+
+        <item name="tabTitleTextColor">@color/colorGreyLight</item>
+
+    </style>
+
+    <style name="ToolbarStyle">
+
+        <item name="android:background">?toolbarBackground</item>
+        <item name="android:textColor">?toolbarTextColor</item>
+        <item name="android:textColorPrimary">?toolbarTextColor</item>
+        <item name="android:textColorSecondary">?toolbarTextColor</item>
+        <item name="isLightTheme">?isLightTheme</item>
+
     </style>
 
 </resources>
