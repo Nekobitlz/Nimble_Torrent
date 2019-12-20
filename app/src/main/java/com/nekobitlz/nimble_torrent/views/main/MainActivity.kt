@@ -28,6 +28,10 @@ class MainActivity : BaseActivity(), MainContract.View {
 
         vp_main.adapter = pagerAdapter
         stl_main.setViewPager(vp_main)
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.detachView()
     }
 }
