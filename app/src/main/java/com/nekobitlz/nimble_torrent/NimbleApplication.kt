@@ -1,11 +1,15 @@
 package com.nekobitlz.nimble_torrent
 
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
+import androidx.multidex.MultiDexApplication
 
-class NimbleApplication : DaggerApplication() {
+class NimbleApplication : MultiDexApplication() {
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.factory().create(this)
+    internal val appComponent: AppComponent by lazy {
+        DaggerAppComponent.builder().application(this).build()
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        appComponent.inject(this)
     }
 }
