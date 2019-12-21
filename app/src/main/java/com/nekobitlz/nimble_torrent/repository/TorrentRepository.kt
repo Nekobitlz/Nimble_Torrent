@@ -1,44 +1,21 @@
 package com.nekobitlz.nimble_torrent.repository
 
-import android.os.Environment
-import com.github.se_bastiaan.torrentstream.TorrentOptions
-import com.github.se_bastiaan.torrentstream.TorrentStream
-import com.github.se_bastiaan.torrentstream.listeners.TorrentListener
+import com.nekobitlz.nimble_torrent.repository.database.TorrentDao
+import com.nekobitlz.nimble_torrent.repository.database.TorrentData
+import io.reactivex.Flowable
+import javax.inject.Inject
 
-class TorrentRepository : ITorrentRepository {
+class TorrentRepository @Inject constructor(private val dao: TorrentDao) : ITorrentRepository {
 
-    private var torrentStream: TorrentStream
-    private lateinit var listener: TorrentListener
-
-    init {
-        val torrentOptions = TorrentOptions.Builder()
-            .saveLocation(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS))
-            .removeFilesAfterStop(true)
-            .build()
-
-        torrentStream = TorrentStream.init(torrentOptions)
+    override fun getDownloadingFiles(): Flowable<List<TorrentData>> {
+        //return dao.getAll()
+        val torrentData = listOf(TorrentData(128, "TEST", "TEST", "17KB", "OFF"))
+        return Flowable.just(torrentData)
     }
 
-    override fun setListener(listener: TorrentListener) {
-        this.listener = listener
-        torrentStream.addListener(listener)
+    override fun addMagnetLink(link: String) {
+        // Pass torrent to stream repo
+        // get torrent from her
+        // add torrent to dao
     }
-
-    override fun startStream(url: String) {
-        torrentStream.startStream(url)
-    }
-
-    override fun stopStream() {
-        torrentStream.stopStream()
-    }
-
-    override fun pauseStream() {
-        torrentStream.pauseSession()
-    }
-
-    override fun resumeStream() {
-        torrentStream.resumeSession()
-    }
-
-    override fun isStreaming(): Boolean = torrentStream.isStreaming
 }

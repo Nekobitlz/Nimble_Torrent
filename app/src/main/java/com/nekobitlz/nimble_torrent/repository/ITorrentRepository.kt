@@ -1,12 +1,10 @@
 package com.nekobitlz.nimble_torrent.repository
 
-import com.github.se_bastiaan.torrentstream.listeners.TorrentListener
+import com.nekobitlz.nimble_torrent.repository.database.TorrentData
+import io.reactivex.Flowable
 
 interface ITorrentRepository {
-    fun startStream(url: String)
-    fun stopStream()
-    fun pauseStream()
-    fun resumeStream()
-    fun isStreaming(): Boolean
-    fun setListener(listener: TorrentListener)
+
+    fun getDownloadingFiles(): Flowable<List<TorrentData>>
+    fun addMagnetLink(link: String)
 }
