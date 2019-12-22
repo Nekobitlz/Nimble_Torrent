@@ -1,19 +1,39 @@
 package com.nekobitlz.nimble_torrent.views.fragments.downloads
 
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nekobitlz.nimble_torrent.R
+import com.nekobitlz.nimble_torrent.repository.database.TorrentData
+import kotlinx.android.synthetic.main.item_download.view.*
 
-class DownloadsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+class DownloadsAdapter : RecyclerView.Adapter<DownloadViewHolder>() {
+
+    var torrentFiles: List<TorrentData> = mutableListOf()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DownloadViewHolder =
+        DownloadViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_download, parent, false)
+        )
+
+    override fun getItemCount(): Int = torrentFiles.size
+
+    override fun onBindViewHolder(holder: DownloadViewHolder, position: Int) {
+        holder.bind(torrentFiles[position])
     }
+}
 
-    override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+class DownloadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    fun bind(torrent: TorrentData) {
+        itemView.apply {
+            tv_file_name.text = torrent.name
+            tv_parent_file_name.text = torrent.filePath
+            tv_file_size.text = torrent.size
+
+            pb_download.max = 100
+            //pb_download.progress = torrent.status //TODO set percents
+        }
     }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
 }

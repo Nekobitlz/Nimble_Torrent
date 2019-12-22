@@ -3,7 +3,6 @@ package com.nekobitlz.nimble_torrent.views.fragments.downloads
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,30 +10,22 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.se_bastiaan.torrentstream.StreamStatus
-import com.github.se_bastiaan.torrentstream.Torrent
-import com.github.se_bastiaan.torrentstream.TorrentOptions
-import com.github.se_bastiaan.torrentstream.TorrentStream
-import com.github.se_bastiaan.torrentstream.listeners.TorrentListener
+import com.nekobitlz.nimble_torrent.NimbleApplication
 import com.nekobitlz.nimble_torrent.R
+import com.nekobitlz.nimble_torrent.repository.database.TorrentData
 import com.nekobitlz.nimble_torrent.views.base.mvp.BaseFragment
 import com.nekobitlz.nimble_torrent.views.fragments.downloads.di.DaggerDownloadsComponent
 import kotlinx.android.synthetic.main.fragment_downloads.*
-import java.lang.Exception
 import javax.inject.Inject
 
 class DownloadsFragment : BaseFragment(), DownloadsContract.View {
-    override fun showToast(text: String) {
-        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
-    }
 
     @Inject
     lateinit var presenter: DownloadsContract.Presenter
 
-   // private val downloadsAdapter = DownloadsAdapter()
+    private val downloadsAdapter = DownloadsAdapter()
 
     companion object {
-
         fun newInstance(): Fragment {
             val downloadsFragment = DownloadsFragment()
 
@@ -42,9 +33,13 @@ class DownloadsFragment : BaseFragment(), DownloadsContract.View {
         }
     }
 
+    override fun showToast(text: String) {
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DaggerDownloadsComponent.builder().build().inject(this)
+        DaggerDownloadsComponent.builder().appComponent((activity!!.application as NimbleApplication).appComponent).build().inject(this)
         presenter.attachView(this)
     }
 
@@ -60,15 +55,12 @@ class DownloadsFragment : BaseFragment(), DownloadsContract.View {
     ): View = inflater.inflate(R.layout.fragment_downloads, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-       // presenter.onSetup(arguments)
+        presenter.onSetup(arguments)
         super.onViewCreated(view, savedInstanceState)
 
-     //   presenter.onRefresh()
-        btn_start.setOnClickListener {
-            presenter.onButtonClick()
-        }
+        presenter.onRefresh()
 
-        /*rv_downloads.apply {
+        rv_downloads.apply {
             adapter = downloadsAdapter
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
@@ -77,13 +69,31 @@ class DownloadsFragment : BaseFragment(), DownloadsContract.View {
         srl_downloads.apply {
             isRefreshing = true
             setOnRefreshListener { presenter.onRefresh() }
-        }*/
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        if (ActivityCompat.checkSelfPermission(this.context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this.activity!!,  Array<String>(2) {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0)
+        if (ActivityCompat.checkSelfPermission(
+                this.context!!,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this.activity!!,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                0
+            )
         }
+    }
+
+    override fun setupView(torrentFiles: List<TorrentData>) {
+        srl_downloads.isRefreshing = false
+        downloadsAdapter.torrentFiles = torrentFiles
+        downloadsAdapter.notifyDataSetChanged()
+    }
+
+    override fun setLoading(isLoading: Boolean) {
+        srl_downloads.isRefreshing = isLoading
     }
 }
