@@ -14,5 +14,6 @@
     <attr name="toolbarTextColor" format="reference|color" />
 
     <attr name="tabTitleTextColor" format="reference|color" />
+    <attr name="cardTextColor" format="reference|color" />
 
 </resources>

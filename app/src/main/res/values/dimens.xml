@@ -9,4 +9,8 @@
     <dimen name="smart_tab_height_48">48dp</dimen>
     <dimen name="viewpager_padding_104">104dp</dimen>
 
+    <dimen name="card_corner_radius_2">2dp</dimen>
+    <dimen name="card_text_view_margin_10">10dp</dimen>
+    <dimen name="font_medium_16">16sp</dimen>
+
 </resources>

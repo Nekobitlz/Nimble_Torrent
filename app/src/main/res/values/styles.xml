@@ -12,6 +12,7 @@
         <item name="isLightTheme">true</item>
 
         <item name="tabTitleTextColor">@color/colorGreyLight</item>
+        <item name="cardTextColor">@color/colorGreyDark</item>
 
     </style>
 

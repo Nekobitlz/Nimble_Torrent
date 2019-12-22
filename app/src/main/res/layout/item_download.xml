@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:theme="@style/Theme.MaterialComponents.Light"
+    app:cardCornerRadius="@dimen/card_corner_radius_2"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_file_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_text_view_margin_10"
+            android:textColor="?cardTextColor"
+            android:textSize="@dimen/font_medium_16"
+            tools:text="TORRENT FILE NAME"
+            tools:textColor="@color/colorGreyDark" />
+
+        <TextView
+            android:id="@+id/tv_parent_file_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_text_view_margin_10"
+            android:textColor="?cardTextColor"
+            android:textSize="@dimen/font_medium_16"
+            tools:text="TORRENT PARENT FILE NAME"
+            tools:textColor="@color/colorGreyDark" />
+
+        <TextView
+            android:id="@+id/tv_file_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_text_view_margin_10"
+            android:textColor="?cardTextColor"
+            android:textSize="@dimen/font_medium_16"
+            tools:text="100MB"
+            tools:textColor="@color/colorGreyDark" />
+
+        <com.daimajia.numberprogressbar.NumberProgressBar
+            android:id="@+id/pb_download"
+            style="@style/NumberProgressBar_Default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_small_8" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
