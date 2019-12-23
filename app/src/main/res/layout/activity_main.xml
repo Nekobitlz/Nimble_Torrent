@@ -45,6 +45,7 @@
         app:stl_underlineColor="#4D000000"
         app:stl_underlineThickness="1dp" />
 
+    <!-- TODO: Migrate to ViewPager2 -->
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp_main"
         android:layout_width="match_parent"
@@ -58,6 +59,6 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/spacing_medium_16"
         android:src="@drawable/ic_plus_24"
-        app:tint="@color/colorGreyLight"/>
+        app:tint="@color/colorGreyLight" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
