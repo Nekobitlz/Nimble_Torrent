@@ -8,6 +8,6 @@ data class TorrentData(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val name: String,
     val filePath: String,
-    val size: String,
-    var status: String
+    val size: Long,
+    var progress: Float
 )

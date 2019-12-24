@@ -11,6 +11,12 @@ interface TorrentDao {
     @Query("SELECT * from torrentdata")
     fun getAll(): Flowable<List<TorrentData>>
 
+    @Query("SELECT * from torrentdata WHERE name =:name")
+    fun getTorrent(name: String): Flowable<TorrentData>
+
+    @Query("UPDATE torrentdata SET progress =:progress WHERE name =:name")
+    fun updateTorrent(name: String, progress: Float)
+
     @Insert
     fun insertAll(vararg torrents: TorrentData)
 
