@@ -8,9 +8,12 @@ import com.nekobitlz.nimble_torrent.R
 class DialogManager : IDialogManager {
 
     override fun showAddMagnetDialog(context: Context, func: (text: String) -> Unit) {
-        MaterialDialog(context).title(R.string.dialog_add_magnet_title).show {
-            input { _, text -> func(text.toString()) }
-            positiveButton(R.string.submit)
-        }
+        MaterialDialog(context)
+            .title(R.string.dialog_add_magnet_title)
+            .show {
+                input { _, text -> func(text.toString()) }
+                positiveButton(R.string.dialog_submit)
+                negativeButton(R.string.dialog_decline)
+            }
     }
 }
