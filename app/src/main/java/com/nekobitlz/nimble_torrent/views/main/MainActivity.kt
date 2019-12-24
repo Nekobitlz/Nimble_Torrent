@@ -1,6 +1,7 @@
 package com.nekobitlz.nimble_torrent.views.main
 
 import android.os.Bundle
+import android.widget.Toast
 import com.nekobitlz.nimble_torrent.NimbleApplication
 import com.nekobitlz.nimble_torrent.R
 import com.nekobitlz.nimble_torrent.views.base.mvp.BaseActivity
@@ -24,7 +25,11 @@ class MainActivity : BaseActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        DaggerMainComponent.builder().appComponent((application as NimbleApplication).appComponent).build().inject(this)
+        DaggerMainComponent
+            .builder()
+            .appComponent((application as NimbleApplication).appComponent)
+            .build()
+            .inject(this)
 
         setSupportActionBar(toolbar_main)
         supportActionBar?.title = getString(R.string.app_name)
@@ -43,5 +48,9 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun showAddMagnetDialog() = dialogManager.showAddMagnetDialog(this) { link ->
         presenter.onMagnetLinkEntered(link)
+    }
+
+    override fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 }
