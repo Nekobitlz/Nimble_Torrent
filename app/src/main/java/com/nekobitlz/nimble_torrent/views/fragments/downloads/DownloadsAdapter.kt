@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nekobitlz.nimble_torrent.R
 import com.nekobitlz.nimble_torrent.repository.database.TorrentData
 import kotlinx.android.synthetic.main.item_download.view.*
+import kotlin.math.roundToInt
 
 class DownloadsAdapter : RecyclerView.Adapter<DownloadViewHolder>() {
 
@@ -30,10 +31,10 @@ class DownloadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.apply {
             tv_file_name.text = torrent.name
             tv_parent_file_name.text = torrent.filePath
-            tv_file_size.text = torrent.size
+            tv_file_size.text = torrent.size.toString() // TODO() : Convert to Human-Readable
 
             pb_download.max = 100
-            //pb_download.progress = torrent.status //TODO set percents
+            pb_download.progress = torrent.progress.roundToInt()
         }
     }
 }
