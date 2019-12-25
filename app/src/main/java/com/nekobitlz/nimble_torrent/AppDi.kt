@@ -57,7 +57,8 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun provideTorrentDatabase(context: Context): TorrentDatabase {
-        return Room.databaseBuilder(context, TorrentDatabase::class.java, DB_NAME).build()
+        return Room.databaseBuilder(context, TorrentDatabase::class.java, DB_NAME)
+            .allowMainThreadQueries().build()
     }
 
     @Singleton

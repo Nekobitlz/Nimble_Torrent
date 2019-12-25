@@ -26,11 +26,7 @@ class DownloadsFragment : BaseFragment(), DownloadsContract.View {
     private val downloadsAdapter = DownloadsAdapter()
 
     companion object {
-        fun newInstance(): Fragment {
-            val downloadsFragment = DownloadsFragment()
-
-            return downloadsFragment
-        }
+        fun newInstance(): Fragment = DownloadsFragment()
     }
 
     override fun showToast(text: String) {
@@ -39,7 +35,13 @@ class DownloadsFragment : BaseFragment(), DownloadsContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DaggerDownloadsComponent.builder().appComponent((activity!!.application as NimbleApplication).appComponent).build().inject(this)
+
+        DaggerDownloadsComponent
+            .builder()
+            .appComponent((activity!!.application as NimbleApplication).appComponent)
+            .build()
+            .inject(this)
+
         presenter.attachView(this)
     }
 
@@ -88,6 +90,10 @@ class DownloadsFragment : BaseFragment(), DownloadsContract.View {
     }
 
     override fun setupView(torrentFiles: List<TorrentData>) {
+        if (!isVisible || !isAdded) {
+            return
+        }
+
         srl_downloads.isRefreshing = false
         downloadsAdapter.torrentFiles = torrentFiles
         downloadsAdapter.notifyDataSetChanged()

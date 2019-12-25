@@ -8,7 +8,6 @@ import com.nekobitlz.nimble_torrent.repository.ITorrentRepository
 import com.nekobitlz.nimble_torrent.repository.database.TorrentData
 import com.nekobitlz.nimble_torrent.views.base.mvp.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 class DownloadsPresenter(private val torrentRepository: ITorrentRepository) :
     BasePresenter<DownloadsContract.View>(), DownloadsContract.Presenter, TorrentListener {
@@ -39,11 +38,8 @@ class DownloadsPresenter(private val torrentRepository: ITorrentRepository) :
 
     override fun onSetup(arguments: Bundle?) {
         torrentRepository.getDownloadingFiles()
-            .compose {
-                it.subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-            }
-            .subscribeWith(object : BaseSubscriber<List<TorrentData>>() {
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : BaseSubscriber<List<TorrentData>>(false) {
                 override fun onNext(t: List<TorrentData>) {
                     view.setupView(t)
                 }
@@ -55,6 +51,7 @@ class DownloadsPresenter(private val torrentRepository: ITorrentRepository) :
 
     override fun onRefresh() {
         torrentRepository.getDownloadingFiles()
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : BaseSubscriber<List<TorrentData>>() {
                 override fun onNext(t: List<TorrentData>) {
                     view.setupView(t)
