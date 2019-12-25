@@ -6,12 +6,14 @@
         <item name="colorPrimaryDark">@color/colorRedDark</item>
         <item name="colorAccent">@color/colorRedLight</item>
 
-        <item name="activityBackground">@color/colorGrey</item>
+        <item name="activityBackground">@color/colorGreyLight</item>
+        <item name="fragmentBackground">@color/colorGrey</item>
         <item name="toolbarBackground">@color/colorRedDark</item>
         <item name="toolbarTextColor">@color/colorGreyLight</item>
         <item name="isLightTheme">true</item>
 
-        <item name="tabTitleTextColor">@color/colorGreyLight</item>
+        <item name="tabBackgroundColor">@color/colorGreyLight</item>
+        <item name="tabTitleTextColor">@color/colorGreyDark</item>
         <item name="cardTextColor">@color/colorGreyDark</item>
 
     </style>

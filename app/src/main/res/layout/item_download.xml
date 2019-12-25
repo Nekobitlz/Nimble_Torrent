@@ -47,6 +47,9 @@
         <com.daimajia.numberprogressbar.NumberProgressBar
             android:id="@+id/pb_download"
             style="@style/NumberProgressBar_Default"
+            app:progress_reached_color="@color/colorRedMain"
+            app:progress_unreached_color="@color/colorRedLight"
+            app:progress_text_color="@color/colorRedDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/spacing_small_8" />

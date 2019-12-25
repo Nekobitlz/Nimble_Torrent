@@ -13,6 +13,7 @@
     <attr name="toolbarBackground" format="reference|color" />
     <attr name="toolbarTextColor" format="reference|color" />
 
+    <attr name="tabBackgroundColor" format="reference|color" />
     <attr name="tabTitleTextColor" format="reference|color" />
     <attr name="cardTextColor" format="reference|color" />
 
