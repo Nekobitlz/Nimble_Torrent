@@ -23,10 +23,10 @@
         app:stl_defaultTabBackground="?attr/selectableItemBackground"
         app:stl_defaultTabTextAllCaps="true"
         app:stl_defaultTabTextColor="?tabTitleTextColor"
-        app:stl_defaultTabTextHorizontalPadding="16dp"
+        app:stl_defaultTabTextHorizontalPadding="@dimen/spacing_medium_16"
         app:stl_defaultTabTextMinWidth="0dp"
         app:stl_defaultTabTextSize="12sp"
-        app:stl_distributeEvenly="false"
+        app:stl_distributeEvenly="true"
         app:stl_dividerColor="?colorAccent"
         app:stl_dividerThickness="1dp"
         app:stl_drawDecorationAfterTab="false"
@@ -41,7 +41,7 @@
         app:stl_indicatorWithoutPadding="false"
         app:stl_overlineColor="#4D000000"
         app:stl_overlineThickness="0dp"
-        app:stl_titleOffset="@dimen/spacing_large_24"
+        app:stl_titleOffset="auto_center"
         app:stl_underlineColor="#4D000000"
         app:stl_underlineThickness="1dp" />
 
