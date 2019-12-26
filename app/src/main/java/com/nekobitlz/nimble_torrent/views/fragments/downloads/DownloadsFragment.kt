@@ -70,6 +70,7 @@ class DownloadsFragment : BaseFragment(), DownloadsContract.View {
 
         srl_downloads.apply {
             isRefreshing = true
+            setColorSchemeResources(R.color.colorRedMain)
             setOnRefreshListener { presenter.onRefresh() }
         }
     }
