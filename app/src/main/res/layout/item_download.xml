@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,7 +10,7 @@
     app:cardUseCompatPadding="true">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -18,7 +18,10 @@
             android:id="@+id/tv_file_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/card_text_view_margin_10"
+            android:layout_marginTop="@dimen/card_text_view_margin_start_end_10"
+            android:layout_marginBottom="@dimen/card_text_view_margin_top_bottom_5"
+            android:layout_marginStart="@dimen/card_text_view_margin_start_end_10"
+            android:layout_marginEnd="@dimen/card_text_view_margin_start_end_10"
             android:textColor="?cardTextColor"
             android:textSize="@dimen/font_medium_16"
             tools:text="TORRENT FILE NAME"
@@ -28,32 +31,87 @@
             android:id="@+id/tv_parent_file_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/card_text_view_margin_10"
+            android:layout_marginTop="@dimen/card_text_view_margin_top_bottom_5"
+            android:layout_marginBottom="@dimen/card_text_view_margin_top_bottom_5"
+            android:layout_marginStart="@dimen/card_text_view_margin_start_end_10"
+            android:layout_marginEnd="@dimen/card_text_view_margin_start_end_10"
             android:textColor="?cardTextColor"
             android:textSize="@dimen/font_medium_16"
             tools:text="TORRENT PARENT FILE NAME"
             tools:textColor="@color/colorGreyDark" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_peers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/card_text_view_margin_top_bottom_5"
+                android:layout_marginBottom="@dimen/card_text_view_margin_top_bottom_5"
+                android:layout_marginStart="@dimen/card_text_view_margin_start_end_10"
+                android:drawableStart="@drawable/ic_arrow_upward_black_24dp"
+                android:textColor="?cardTextColor"
+                android:textSize="@dimen/font_medium_16"
+                tools:text="2 PEERS"
+                tools:textColor="@color/colorGreyDark" />
+
+            <TextView
+                android:id="@+id/tv_seeds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/card_text_view_margin_top_bottom_5"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="@dimen/card_text_view_margin_start_end_10"
+                android:layout_marginEnd="@dimen/card_text_view_margin_start_end_10"
+                android:drawableStart="@drawable/ic_arrow_downward_black_24dp"
+                android:textColor="?cardTextColor"
+                android:textSize="@dimen/font_medium_16"
+                tools:text="1 SEED"
+                tools:textColor="@color/colorGreyDark" />
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/tv_file_size"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/card_text_view_margin_10"
+            android:layout_marginTop="@dimen/card_text_view_margin_top_bottom_5"
+            android:layout_marginBottom="@dimen/card_text_view_margin_top_bottom_5"
+            android:layout_marginStart="@dimen/card_text_view_margin_start_end_10"
+            android:layout_marginEnd="@dimen/card_text_view_margin_start_end_10"
             android:textColor="?cardTextColor"
             android:textSize="@dimen/font_medium_16"
             tools:text="100MB"
             tools:textColor="@color/colorGreyDark" />
 
+        <TextView
+            android:id="@+id/tv_speed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/card_text_view_margin_top_bottom_5"
+            android:layout_marginBottom="@dimen/card_text_view_margin_top_bottom_5"
+            android:layout_marginStart="@dimen/card_text_view_margin_start_end_10"
+            android:layout_marginEnd="@dimen/card_text_view_margin_start_end_10"
+            android:textColor="?cardTextColor"
+            android:textSize="@dimen/font_medium_16"
+            tools:text="150Kb/s"
+            tools:textColor="@color/colorGreyDark" />
+
         <com.daimajia.numberprogressbar.NumberProgressBar
             android:id="@+id/pb_download"
             style="@style/NumberProgressBar_Default"
-            app:progress_reached_color="@color/colorRedMain"
-            app:progress_unreached_color="@color/colorRedLight"
-            app:progress_text_color="@color/colorRedDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/spacing_small_8" />
+            android:layout_margin="@dimen/card_text_view_margin_top_bottom_5"
+            android:padding="@dimen/spacing_small_8"
+            app:progress_reached_color="@color/colorRedMain"
+            app:progress_text_color="@color/colorRedDark"
+            app:progress_unreached_color="@color/colorRedLight" />
 
     </LinearLayout>
 
-</com.google.android.material.card.MaterialCardView>
+
+</androidx.cardview.widget.CardView>

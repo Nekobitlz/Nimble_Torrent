@@ -3,6 +3,7 @@ package com.nekobitlz.nimble_torrent.views.fragments.downloads
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import com.nekobitlz.nimble_torrent.R
 import com.nekobitlz.nimble_torrent.repository.database.TorrentData
@@ -33,6 +34,13 @@ class DownloadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             tv_file_name.text = torrent.name
             tv_parent_file_name.text = torrent.filePath
             tv_file_size.text = torrent.size.toHumanReadable()
+
+            if (torrent.speed <= 0) tv_speed.visibility = View.GONE
+            else if (tv_speed.isGone) tv_speed.visibility = View.VISIBLE
+
+            tv_speed.text = "${torrent.speed.toLong().toHumanReadable()}/s"
+            tv_peers.text = torrent.peers.toString()
+            tv_seeds.text = torrent.seeds.toString()
 
             pb_download.max = 100
             pb_download.progress = torrent.progress.roundToInt()

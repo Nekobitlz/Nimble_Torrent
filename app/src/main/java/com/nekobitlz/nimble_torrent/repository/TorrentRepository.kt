@@ -30,9 +30,9 @@ class TorrentRepository @Inject constructor(private val dao: TorrentDao) : ITorr
         val torrentHandle = torrent.torrentHandle
 
         if (torrentHandle.status().isFinished) {
-            dao.updateTorrent(torrentHandle.name(), 100f)
+            dao.updateTorrent(torrentHandle.name(), 100f, 0.0f, 0, 0)
         } else {
-            dao.updateTorrent(torrentHandle.name(), status.progress)
+            dao.updateTorrent(torrentHandle.name(), status.progress, status.downloadSpeed, status.seeds, torrentHandle.peerInfo().size)
         }
     }
 

@@ -9,5 +9,8 @@ data class TorrentData(
     val name: String,
     val filePath: String,
     val size: Long,
-    var progress: Float
+    var progress: Float = 0.0f,
+    var seeds: Int = 0,
+    var peers: Int = 0,
+    var speed: Float = 0.0f
 )
