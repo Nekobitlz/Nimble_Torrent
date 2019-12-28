@@ -3,4 +3,5 @@
     <string name="dialog_add_magnet_title">Add magnet link</string>
     <string name="dialog_submit">Submit</string>
     <string name="dialog_decline">Decline</string>
+    <string name="no_torrents_error">Downloadable torrents not found, you can add them using the button below.</string>
 </resources>

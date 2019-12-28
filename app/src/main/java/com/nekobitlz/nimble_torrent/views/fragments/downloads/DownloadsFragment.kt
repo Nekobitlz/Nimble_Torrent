@@ -96,7 +96,15 @@ class DownloadsFragment : BaseFragment(), DownloadsContract.View {
         }
 
         srl_downloads.isRefreshing = false
-        downloadsAdapter.torrentFiles = torrentFiles
+
+        if (torrentFiles.isEmpty()) {
+            tv_no_torrents.visibility = View.VISIBLE
+            rv_downloads.visibility = View.GONE
+        } else {
+            tv_no_torrents.visibility = View.GONE
+            rv_downloads.visibility = View.VISIBLE
+            downloadsAdapter.torrentFiles = torrentFiles
+        }
         downloadsAdapter.notifyDataSetChanged()
     }
 
