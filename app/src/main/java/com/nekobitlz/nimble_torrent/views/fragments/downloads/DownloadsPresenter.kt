@@ -60,8 +60,7 @@ class DownloadsPresenter(private val torrentRepository: ITorrentRepository) :
             .addSubscription()
     }
 
-    /*override fun onViewClicked(torrentFile: TorrentFile, action: ClickType) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }*/
-
+    override fun onDeleteClick(torrentData: TorrentData) {
+        torrentRepository.deleteTorrent(torrentData)
+    }
 }

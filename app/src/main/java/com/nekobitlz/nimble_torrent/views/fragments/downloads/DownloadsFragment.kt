@@ -14,6 +14,7 @@ import com.nekobitlz.nimble_torrent.NimbleApplication
 import com.nekobitlz.nimble_torrent.R
 import com.nekobitlz.nimble_torrent.repository.database.TorrentData
 import com.nekobitlz.nimble_torrent.views.base.mvp.BaseFragment
+import com.nekobitlz.nimble_torrent.views.dialogs.IDialogManager
 import com.nekobitlz.nimble_torrent.views.fragments.downloads.di.DaggerDownloadsComponent
 import kotlinx.android.synthetic.main.fragment_downloads.*
 import javax.inject.Inject
@@ -23,7 +24,17 @@ class DownloadsFragment : BaseFragment(), DownloadsContract.View {
     @Inject
     lateinit var presenter: DownloadsContract.Presenter
 
-    private val downloadsAdapter = DownloadsAdapter()
+    @Inject
+    lateinit var dialogManager: IDialogManager
+
+    private val onDeleteClick: (View, Int) -> Unit = { _, position ->
+        val torrent = downloadsAdapter.torrentFiles[position]
+        dialogManager.showDeleteTorrentDialog(context!!, torrent) {
+            presenter.onDeleteClick(torrent)
+        }
+    }
+
+    private val downloadsAdapter = DownloadsAdapter(onDeleteClick)
 
     companion object {
         fun newInstance(): Fragment = DownloadsFragment()

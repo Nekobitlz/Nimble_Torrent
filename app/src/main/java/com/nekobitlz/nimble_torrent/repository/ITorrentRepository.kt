@@ -8,4 +8,5 @@ interface ITorrentRepository {
 
     fun getDownloadingFiles(): Flowable<List<TorrentData>>
     fun addMagnetLink(link: String, listener: TorrentListener)
+    fun deleteTorrent(torrent: TorrentData)
 }

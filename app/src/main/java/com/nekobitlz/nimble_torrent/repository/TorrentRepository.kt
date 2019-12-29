@@ -12,6 +12,10 @@ class TorrentRepository @Inject constructor(private val dao: TorrentDao) : ITorr
 
     override fun getDownloadingFiles(): Flowable<List<TorrentData>> = dao.getAll()
 
+    override fun deleteTorrent(torrent: TorrentData) {
+        Observable.fromCallable { dao.delete(torrent) }.subscribeOn(Schedulers.io()).subscribe()
+    }
+
     override fun addMagnetLink(link: String, listener: TorrentListener) {
         TorrentStreamRepository().getStream().also {
             it.startStream(link)
