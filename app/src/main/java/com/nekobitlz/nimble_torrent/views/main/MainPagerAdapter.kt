@@ -16,9 +16,9 @@ class MainPagerAdapter(fragmentManager: FragmentManager) :
     private val downloadsFragment = DownloadsFragment.newInstance()
 
     override fun getItem(position: Int): Fragment = when (position) {
-        0 -> browseFragment
-        1 -> allTorrentsFragment
-        2 -> downloadsFragment
+        0 -> allTorrentsFragment
+        1 -> downloadsFragment
+        2 -> browseFragment
         else -> throw IllegalStateException("No more that 2 fragments required")
     }
 
@@ -28,9 +28,9 @@ class MainPagerAdapter(fragmentManager: FragmentManager) :
 
     // TODO Extract String resources
     override fun getPageTitle(position: Int): CharSequence = when (position) {
-        0 -> "Browse"
-        1 -> "My torrents"
-        2 -> "Downloads"
+        0 -> "My torrents"
+        1 -> "Downloads"
+        2 -> "Browse"
         else -> throw IllegalStateException("No more that 2 fragments required")
     }
 }
