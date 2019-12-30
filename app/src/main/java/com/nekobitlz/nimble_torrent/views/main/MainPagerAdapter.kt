@@ -1,4 +1,4 @@
-package com.nekobitlz.nimble_torrent.views.main.di
+package com.nekobitlz.nimble_torrent.views.main
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

@@ -7,7 +7,6 @@ import com.nekobitlz.nimble_torrent.R
 import com.nekobitlz.nimble_torrent.views.base.mvp.BaseActivity
 import com.nekobitlz.nimble_torrent.views.dialogs.IDialogManager
 import com.nekobitlz.nimble_torrent.views.main.di.DaggerMainComponent
-import com.nekobitlz.nimble_torrent.views.main.di.MainPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -19,7 +18,8 @@ class MainActivity : BaseActivity(), MainContract.View {
     @Inject
     lateinit var dialogManager: IDialogManager
 
-    private val pagerAdapter = MainPagerAdapter(supportFragmentManager)
+    private val pagerAdapter =
+        MainPagerAdapter(supportFragmentManager)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
