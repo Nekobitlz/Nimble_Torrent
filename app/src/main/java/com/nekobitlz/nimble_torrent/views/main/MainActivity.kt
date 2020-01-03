@@ -18,8 +18,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     @Inject
     lateinit var dialogManager: IDialogManager
 
-    private val pagerAdapter =
-        MainPagerAdapter(supportFragmentManager)
+    private val pagerAdapter = MainPagerAdapter(supportFragmentManager)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +47,7 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun showAddMagnetDialog() = dialogManager.showAddMagnetDialog(this) { link ->
         presenter.onMagnetLinkEntered(link)
+        (vp_main.adapter as MainPagerAdapter).setLoading(true)
     }
 
     override fun showToast(text: String) {

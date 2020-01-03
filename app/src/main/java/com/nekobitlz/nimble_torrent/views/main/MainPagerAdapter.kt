@@ -33,4 +33,8 @@ class MainPagerAdapter(fragmentManager: FragmentManager) :
         2 -> "Browse"
         else -> throw IllegalStateException("No more that 2 fragments required")
     }
+
+    fun setLoading(isLoading: Boolean) {
+        (downloadsFragment as DownloadsFragment).setLoading(isLoading)
+    }
 }
