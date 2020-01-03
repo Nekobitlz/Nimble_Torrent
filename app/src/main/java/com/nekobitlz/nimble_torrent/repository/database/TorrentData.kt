@@ -12,5 +12,6 @@ data class TorrentData(
     var progress: Float = 0.0f,
     var seeds: Int = 0,
     var peers: Int = 0,
-    var speed: Float = 0.0f
+    var speed: Float = 0.0f,
+    var isFinished: Boolean = false
 )

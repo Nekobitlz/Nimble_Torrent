@@ -12,41 +12,56 @@ import javax.inject.Inject
 
 class TorrentRepository @Inject constructor(private val dao: TorrentDao) : ITorrentRepository, TorrentListener {
 
-    override fun getDownloadingFiles(): Flowable<List<TorrentData>> = dao.getAll()
+    override fun getDownloadingFiles(): Flowable<List<TorrentData>> = dao.getAllDownloads(isFinished = false)
+
+    override fun getAllFiles(): Flowable<List<TorrentData>> = dao.getAll()
 
     override fun deleteTorrent(torrent: TorrentData) {
         Observable.fromCallable { dao.delete(torrent) }.subscribeOn(Schedulers.io()).subscribe()
     }
 
     override fun addMagnetLink(link: String, listener: TorrentListener) {
-        TorrentStreamRepository().getStream().also {
-            it.startStream(link)
-            it.addListener(listener)
-            it.addListener(this)
+        val torrentStreamRepository = TorrentStreamRepository()
+
+        torrentStreamRepository.apply {
+            setListener(this@TorrentRepository)
+            setListener(listener)
+            startStream(link)
         }
     }
 
     override fun onStreamPrepared(torrent: Torrent) {
         val torrentHandle = torrent.torrentHandle
         val torrentData = TorrentData(0, torrentHandle.name(), torrentHandle.savePath(), torrentHandle.status().total(), 0f)
+
         Observable.fromCallable { dao.insertAll(torrentData) }.subscribeOn(Schedulers.io()).subscribe()
     }
 
     override fun onStreamProgress(torrent: Torrent, status: StreamStatus) {
         val torrentHandle = torrent.torrentHandle
 
-        if (torrentHandle.status().isFinished) {
-            Observable.fromCallable { dao.updateTorrent(torrentHandle.name(), 100f, 0.0f, 0, 0) }.subscribeOn(Schedulers.io()).subscribe()
-        } else {
-            Observable.fromCallable { dao.updateTorrent(torrentHandle.name(), status.progress, status.downloadSpeed, status.seeds, torrentHandle.peerInfo().size) }.subscribeOn(Schedulers.io()).subscribe()
-        }
+        Observable.fromCallable {
+            if (torrentHandle.status().isFinished) {
+                dao.updateTorrent(torrentHandle.name(), 100f, 0.0f, 0, 0)
+                dao.finishTorrentDownload(torrentHandle.name(), true)
+            } else {
+                dao.updateTorrent(
+                    torrentHandle.name(),
+                    status.progress,
+                    status.downloadSpeed,
+                    status.seeds,
+                    torrentHandle.peerInfo().size
+                )
+            }
+        }.subscribeOn(Schedulers.io())
+            .subscribe()
     }
 
-    override fun onStreamReady(torrent: Torrent) { /* not implemented */ }
+    override fun onStreamReady(torrent: Torrent?) { /* not implemented */ }
 
     override fun onStreamStopped() { /* not implemented */ }
 
-    override fun onStreamStarted(torrent: Torrent) { /* not implemented */ }
+    override fun onStreamStarted(torrent: Torrent?) { /* not implemented */ }
 
-    override fun onStreamError(torrent: Torrent, e: Exception) { /* not implemented */ }
+    override fun onStreamError(torrent: Torrent?, e: Exception) { e.printStackTrace() }
 }

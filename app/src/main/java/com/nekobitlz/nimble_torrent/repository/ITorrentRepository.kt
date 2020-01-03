@@ -7,6 +7,7 @@ import io.reactivex.Flowable
 interface ITorrentRepository {
 
     fun getDownloadingFiles(): Flowable<List<TorrentData>>
+    fun getAllFiles(): Flowable<List<TorrentData>>
     fun addMagnetLink(link: String, listener: TorrentListener)
     fun deleteTorrent(torrent: TorrentData)
 }
