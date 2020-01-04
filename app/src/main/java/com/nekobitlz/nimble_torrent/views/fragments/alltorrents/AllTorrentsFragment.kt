@@ -10,13 +10,15 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nekobitlz.nimble_torrent.NimbleApplication
 import com.nekobitlz.nimble_torrent.R
 import com.nekobitlz.nimble_torrent.repository.database.TorrentData
 import com.nekobitlz.nimble_torrent.views.base.mvp.BaseFragment
 import com.nekobitlz.nimble_torrent.views.dialogs.IDialogManager
 import com.nekobitlz.nimble_torrent.views.fragments.alltorrents.di.DaggerAllTorrentsComponent
-import com.nekobitlz.nimble_torrent.views.fragments.downloads.DownloadsContract
+import com.nekobitlz.nimble_torrent.views.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_all.*
 import javax.inject.Inject
 
@@ -79,6 +81,18 @@ class AllTorrentsFragment : BaseFragment(), AllTorrentsContract.View {
             adapter = allTorrentsAdapter
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    val fab = (activity as MainActivity).findViewById<FloatingActionButton>(R.id.fab)
+
+                    if (dy > 0) {
+                        fab.hide()
+                    } else {
+                        fab.show()
+                    }
+                    super.onScrolled(recyclerView, dx, dy)
+                }
+            })
         }
 
         srl_all_torrents.apply {
