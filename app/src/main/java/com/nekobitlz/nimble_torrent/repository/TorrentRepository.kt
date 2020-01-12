@@ -41,18 +41,13 @@ class TorrentRepository @Inject constructor(private val dao: TorrentDao) : ITorr
         val torrentHandle = torrent.torrentHandle
 
         Observable.fromCallable {
-            if (torrentHandle.status().isFinished) {
-                dao.updateTorrent(torrentHandle.name(), 100f, 0.0f, 0, 0)
-                dao.finishTorrentDownload(torrentHandle.name(), true)
-            } else {
-                dao.updateTorrent(
-                    torrentHandle.name(),
-                    status.progress,
-                    status.downloadSpeed,
-                    status.seeds,
-                    torrentHandle.peerInfo().size
-                )
-            }
+            dao.updateTorrent(
+                torrentHandle.name(),
+                status.progress,
+                status.downloadSpeed.toFloat(),
+                status.seeds,
+                torrentHandle.peerInfo().size
+            )
         }.subscribeOn(Schedulers.io())
             .subscribe()
     }
@@ -64,4 +59,16 @@ class TorrentRepository @Inject constructor(private val dao: TorrentDao) : ITorr
     override fun onStreamStarted(torrent: Torrent?) { /* not implemented */ }
 
     override fun onStreamError(torrent: Torrent?, e: Exception) { e.printStackTrace() }
+
+    override fun onStreamFinished(torrent: Torrent) {
+        val torrentHandle = torrent.torrentHandle
+
+        Observable.fromCallable {
+            dao.finishTorrentDownload(torrentHandle.name(), true)
+            dao.updateTorrent(torrentHandle.name(), 100.0f, 0f, 0, 0)
+        }.subscribeOn(Schedulers.io())
+            .subscribe()
+
+        //TODO : Change speed from float to int
+    }
 }

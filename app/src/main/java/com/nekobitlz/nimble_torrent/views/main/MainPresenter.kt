@@ -40,4 +40,7 @@ class MainPresenter(private val torrentRepository: ITorrentRepository) : BasePre
         view.showToast(e.toString())
     }
 
+    override fun onStreamFinished(torrent: Torrent?) {
+        view.showToast("FINISHED")
+    }
 }
