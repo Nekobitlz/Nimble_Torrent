@@ -6,6 +6,7 @@ import com.nekobitlz.nimble_torrent.NimbleApplication
 import com.nekobitlz.nimble_torrent.R
 import com.nekobitlz.nimble_torrent.views.base.mvp.BaseActivity
 import com.nekobitlz.nimble_torrent.views.dialogs.IDialogManager
+import com.nekobitlz.nimble_torrent.views.main.MainPagerAdapter.Companion.DOWNLOADS_FRAGMENT
 import com.nekobitlz.nimble_torrent.views.main.di.DaggerMainComponent
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -48,6 +49,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun showAddMagnetDialog() = dialogManager.showAddMagnetDialog(this) { link ->
         presenter.onMagnetLinkEntered(link)
         (vp_main.adapter as MainPagerAdapter).setLoading(true)
+        vp_main.currentItem = DOWNLOADS_FRAGMENT
     }
 
     override fun showToast(text: String) {
