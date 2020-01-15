@@ -2,6 +2,7 @@ package com.nekobitlz.nimble_torrent.views.main
 
 import com.github.se_bastiaan.torrentstream.StreamStatus
 import com.github.se_bastiaan.torrentstream.Torrent
+import com.github.se_bastiaan.torrentstream.exceptions.TorrentInfoException
 import com.github.se_bastiaan.torrentstream.listeners.TorrentListener
 import com.nekobitlz.nimble_torrent.repository.ITorrentRepository
 import com.nekobitlz.nimble_torrent.views.base.mvp.BasePresenter
@@ -36,8 +37,14 @@ class MainPresenter(private val torrentRepository: ITorrentRepository) : BasePre
         view.showToast(status!!.progress.toString() + " Percents downloaded")
     }
 
-    override fun onStreamError(torrent: Torrent?, e: Exception?) {
-        view.showToast(e.toString())
+    override fun onStreamError(torrent: Torrent?, e: Exception) {
+        if (e is TorrentInfoException) {
+            view.showToast("Incorrect torrent link, please check the link and try again")
+        } else {
+            view.showToast(e.toString())
+        }
+
+        view.setLoading(false)
     }
 
     override fun onStreamFinished(torrent: Torrent?) {
