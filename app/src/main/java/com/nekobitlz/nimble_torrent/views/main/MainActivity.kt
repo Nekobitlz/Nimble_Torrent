@@ -48,11 +48,15 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun showAddMagnetDialog() = dialogManager.showAddMagnetDialog(this) { link ->
         presenter.onMagnetLinkEntered(link)
-        (vp_main.adapter as MainPagerAdapter).setLoading(true)
         vp_main.currentItem = DOWNLOADS_FRAGMENT
+        setLoading(true)
     }
 
     override fun showToast(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun setLoading(isLoading: Boolean) {
+        (vp_main.adapter as MainPagerAdapter).setLoading(isLoading)
     }
 }
